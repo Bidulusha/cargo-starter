@@ -1,0 +1,15 @@
+[workspace]
+resolver = "3"
+members = [
+    "api/authorization",
+    "api/chat", 
+    "api/database", 
+    "api/site", 
+    "starter"
+    ]
+
+[workspace.dependencies]
+colored = "3.1.1"
+dotenv = "0.15.0"
+tokio = "1.52.3"
+

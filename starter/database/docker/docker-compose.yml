@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: messenger_db
+    ports:
+      - "5433:5432"
+    env_file:
+      - ../../.env
+    volumes:
+    - postgres_data:/home/docker/postgres/messenger_data
+    - ../postgres/postgres.conf:/etc/postgresql/postgresql.conf:ro
+    - ../postgres/init-scripts:/docker-entrypoint-initdb.d:ro
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", 'pg_isready -U "$${POSTGRES_USER:-postgres}" -d "$${POSTGRES_DB:-postgres}" -h localhost || exit 1' ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+volumes:
+  postgres_data:
